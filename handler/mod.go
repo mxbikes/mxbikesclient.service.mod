@@ -46,7 +46,8 @@ func (e *Mod) SearchMod(ctx context.Context, req *protobuffer.SearchModRequest) 
 	items := result.Items.(*[]models.Mod)
 	var mods []*models.Mod
 	for _, item := range *items {
-		mods = append(mods, &item)
+		var mod = item
+		mods = append(mods, &mod)
 	}
 
 	e.logger.WithFields(logrus.Fields{"prefix": "SERVICE.Mod_SearchMod"}).Infof("mod like: {%s} ", req.SearchText)
