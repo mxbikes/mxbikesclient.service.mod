@@ -18,7 +18,7 @@ import (
 var (
 	logLevel    = GetEnv("LOG_LEVEL", "info")
 	port        = GetEnv("PORT", ":4091")
-	postgresUrl = GetEnv("POSTGRES_URI", "host=localhost port=5432 user=postgres password=password sslmode=disable timezone=UTC connect_timeout=5")
+	postgresUrl = GetEnv("POSTGRES_URI", "host=host.docker.internal port=5432 user=postgres password=password sslmode=disable timezone=UTC connect_timeout=5")
 )
 
 func main() {
