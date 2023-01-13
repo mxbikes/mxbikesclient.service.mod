@@ -4,10 +4,12 @@ import (
 	"context"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/gogo/status"
 	"github.com/mxbikes/mxbikesclient.service.mod/models"
 	"github.com/mxbikes/mxbikesclient.service.mod/repository"
 	protobuffer "github.com/mxbikes/protobuf/mod"
 	"github.com/sirupsen/logrus"
+	"google.golang.org/grpc/codes"
 )
 
 type Mod struct {
@@ -24,6 +26,9 @@ func New(postgres repository.ModRepository, logger logrus.Logger) *Mod {
 
 func (e *Mod) GetModByID(ctx context.Context, req *protobuffer.GetModByIDRequest) (*protobuffer.GetModByIDResponse, error) {
 	mod := e.repository.GetModByID(req.ID)
+	if mod != nil {
+		return nil, status.Error(codes.NotFound, "Error requested ModID, is not found!")
+	}
 
 	e.logger.WithFields(logrus.Fields{"prefix": "SERVICE.Mod_GetModByID"}).Infof("mod with id: {%s} ", req.ID)
 
