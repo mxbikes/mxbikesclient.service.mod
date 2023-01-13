@@ -11,6 +11,6 @@ COPY . ./
 
 RUN go build -o ./service-mod
 
-EXPOSE 4089
+EXPOSE 4091
 
 CMD [ "./service-mod" ]
